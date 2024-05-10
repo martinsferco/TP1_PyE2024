@@ -1,26 +1,14 @@
 # Instalo los paquetes necesarios (si aún no los tengo instalados)
 install.packages("tidyverse")
 
-setwd("/home/martin/Documents/LCC/3ro/R311 - Probabilidad y Estadistica/TPDescriptiva")
-
-# Cargo el archivo como .xlsx
-datos <- readxl::read_excel("Datos_LP.xlsx", 
-                            col_names = FALSE, 
-                            skip = 3)
-
-# Veo la estructura del dataset
-str(datos)
-
-
-
 # Cargo los paquetes que voy a usar
 library(tidyverse)
-
 library(magrittr)
 library(dplyr)
 
-
 # Fijo el dataset
+attach(datos)
+
 
 ######################
 # Renombrar columnas #
@@ -28,8 +16,6 @@ library(dplyr)
 colnames(datos) <- c("id","altura","diametro","inclinacion","edad","tiempo",
 										 "brotes","especie","follaje","origen","atracnosis",
 										 "roya","manchas","ampollas")
-
-attach(datos)
 
 # DATOS QUE QUEREMOS RECUPERAR
 # Id
