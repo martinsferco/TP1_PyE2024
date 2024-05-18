@@ -13,9 +13,9 @@ attach(datos)
 ######################
 # Renombrar columnas #
 ######################
-colnames(datos) <- c("id","altura","diametro","inclinacion","edad","tiempo",
-										 "brotes","especie","follaje","origen","atracnosis",
-										 "roya","manchas","ampollas")
+#colnames(datos) <- c("id","altura","diametro","inclinacion","edad","tiempo",
+#										 "brotes","especie","follaje","origen","atracnosis",
+#										 "roya","manchas","ampollas")
 
 # DATOS QUE QUEREMOS RECUPERAR
 # Id
@@ -29,8 +29,26 @@ colnames(datos) <- c("id","altura","diametro","inclinacion","edad","tiempo",
 # Espacios de practicas corporales
 # Espacios verdes a menos de 500 metros
 
+id <- ...1
+provincia <- ...2
+cantidad_integrantes <- ...6
+tiempo_residencia <- ...5
 
+condicion_lugar_habitan <- ...19
+hay_veredas <- ...89
+hay_alumbrado <- ...90
 
+numero_maximo_personas_habitacion <- ...14
+
+espacios_practicas_corporales <- cbind(...96, ...97, ...98, ...99, ...100, ...101, ...102, ...103, ...104)
+colnames(espacios_practicas_corporales) <- c("Polideportivo municipal", "Natatorio municipal", "Playón multiuso", "Cancha de futbol",  "Posta de ejercicio",
+                                            "Skatepark", "Balnearios","No existen tales espacios", "Otro")
+
+espacios_verdes <- cbind(...106, ...107, ...108, ...109)
+colnames(espacios_verdes) <- c("Placita, plazoleta, paseo (Menos de 0,5 hectáreas)",
+                               "Plaza (Entre 0,5 ha y 5 hectáreas)",
+                               "Parque Urbano (Más de 5 ha hectáreas)", 
+                               "No existen tales espacios")
 
 ###################
 # Modificar datos #

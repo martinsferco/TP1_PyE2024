@@ -20,6 +20,7 @@ googledrive::drive_download(as_id("1sD01MGvlotrAZuC_xPXwwNd5ipwqCHbo"),
 datos <- readxl::read_excel(file_name, 
 														col_names = FALSE, 
 														skip = 3)
+
 # Borramos el archivo
 file.remove(file_name)
 
