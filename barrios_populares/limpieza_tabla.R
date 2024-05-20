@@ -37,13 +37,13 @@ colnames(espacios_verdes_df) <- c("Placita, plazoleta, paseo (Menos de 0,5 hectÃ
 # Modificamos los datos para su utilizacion #
 #############################################
 
-particiones_tiempo = seq(from = 0, to = max(datos_df$`Tiempo de residencia`), 5)
+particiones_tiempo = seq(from = 0, to = 120, 5)
 
 datos_df <- datos_df %>%
   mutate(
-    `Tiempo de residencia` = cut(`Tiempo de residencia`,
-                                 breaks = particiones_tiempo,
-                                 right = FALSE)
+    `Tiempo de residencia intervalo` = cut(`Tiempo de residencia`,
+                                       breaks = particiones_tiempo,
+                                       right = FALSE)
   )
   
 practicas_corporales_df <- practicas_corporales_df %>%
@@ -53,3 +53,4 @@ espacios_verdes_df <- espacios_verdes_df %>%
   mutate (across(everything(), ~ ifelse(is.na(.), 0, 1)))
 
 # SELECT FILTER UTILES
+# Como vamos a trabajar con CABA y las provincias del litoral
