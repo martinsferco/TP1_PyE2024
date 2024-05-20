@@ -53,4 +53,12 @@ espacios_verdes_df <- espacios_verdes_df %>%
   mutate (across(everything(), ~ ifelse(is.na(.), 0, 1)))
 
 # SELECT FILTER UTILES
-# Como vamos a trabajar con CABA y las provincias del litoral
+
+# Separamos los datos de CABA en una tabla
+datos_caba <- subset(datos_df, datos_df $Provincia == "CABA")
+
+# Separamos los datos de las provincias del litoral en una tabla
+
+litoral <- c("Formosa", "Chaco", "Misiones", "Corrientes", "Entre Ríos", "Santa Fe")
+datos_lit <- subset(datos_df, datos_df $ Provincia %in% litoral)
+
