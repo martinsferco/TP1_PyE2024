@@ -30,16 +30,74 @@ axis(side = 1, particiones_tiempo)
 
 
 # CONDICION DEL LUGAR QUE HABITAN - SECTORES
+cond_lugar_caba <- table(datos_caba $`Condicion del lugar que habitan`)
+cond_lugar_caba <- cond_lugar_caba[order(cond_lugar_caba, decreasing = TRUE)]
 
-barplot(x = table(datos_caba $`Condicion del lugar que habitan`),
+barplot(height = cond_lugar_caba,
         width = 1,
-        horiz = FALSE)
+        horiz = FALSE,
+        axes = TRUE,
+        axisnames = TRUE,
+        ylim = c(0, 120),
+        col = "#EC821E")
 
+cond_lugar_lit <- table(datos_lit $`Condicion del lugar que habitan`)
+cond_lugar_lit <- cond_lugar_lit[order(names(cond_lugar_lit), decreasing = TRUE)]
+
+barplot(height = cond_lugar_lit,
+        width = 1,
+        horiz = FALSE,
+        axes = TRUE,
+        axisnames = TRUE,
+        ylim = c(0, 140),
+        col = "#1E8EEC")
 
 # HAY VEREDAS - GRAFICO DE BARRAS ORDENADO POR CATEGORIA
+mi_orden <- factor(datos_caba $`Hay veredas`, levels = c("No", 
+                                                          "Sí, hechas por vecinxs", 
+                                                          "Sí, hechas por el Estado (municipio, provincia o Estado nacional"))
+
+veredas_caba <- table(datos_caba $`Hay veredas` [order(mi_orden)])
+veredas_lit <-  table(datos_lit $`Hay veredas` [order(mi_orden)])
+
+barplot(height = veredas_caba,
+        width = 0.5,
+        horiz = FALSE,
+        axes = TRUE,
+        axisnames = TRUE,
+        ylim = c(0, 200),
+        col = "#EC821E")
+
+barplot(height = veredas_lit,
+        width = 0.5,
+        horiz = FALSE,
+        axes = TRUE,
+        axisnames = TRUE,
+        ylim = c(0, 200),
+        col = "#1E8EEC")
+
 # HAY ALUMBRADO PUBLICO - GRAFICO DE BARRAS ORDENADO POR CATEGORIA
+alumbrado_caba <- table(datos_caba $`Hay alumbrado publico` [order(mi_orden)])
+alumbrado_lit <- table(datos_lit $`Hay alumbrado publico` [order(mi_orden)])
+
+barplot(height = alumbrado_caba,
+        width = 0.5,
+        horiz = FALSE,
+        axes = TRUE,
+        axisnames = TRUE,
+        ylim = c(0, 200),
+        col = "#EC821E")
+
+barplot(height = alumbrado_lit,
+        width = 0.5,
+        horiz = FALSE,
+        axes = TRUE,
+        axisnames = TRUE,
+        ylim = c(0, 200),
+        col = "#1E8EEC")
 
 # ESPACIOS DE PRACTICAS CORPORALES - TABLA DE FRECUENCIAS
+
 
 # ESPACIOS VERDES - TABLA DE FRECUENCIAS
 
