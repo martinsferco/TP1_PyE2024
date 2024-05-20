@@ -22,6 +22,9 @@ colnames(datos_df) <- c("Id", "Provincia", "Cantidad de integrantes", "Tiempo de
                                                   
 
 # Dataframes de variables de respuesta multiple
+provincias_df <- data.frame(...2)
+colnames(provincias_df) <- c("Provincia")
+
 practicas_corporales_df <- data.frame(...96, ...97, ...98, ...99, ...100, ...101, ...102, ...103, ...104)
 colnames(practicas_corporales_df) <- c("Polideportivo municipal", "Natatorio municipal", "Playón multiuso", "Cancha de futbol",  "Posta de ejercicio",
                                             "Skatepark", "Balnearios","No existen tales espacios", "Otro")
@@ -49,9 +52,12 @@ datos_df <- datos_df %>%
 practicas_corporales_df <- practicas_corporales_df %>%
   mutate (across(everything(), ~ifelse(is.na(.), 0, 1)))
 
+practicas_corporales_df <- data.frame(provincias_df, practicas_corporales_df)
+
 espacios_verdes_df <- espacios_verdes_df %>% 
   mutate (across(everything(), ~ ifelse(is.na(.), 0, 1)))
 
+espacios_verdes_df <- data.frame(provincias_df, espacios_verdes_df)
 # SELECT FILTER UTILES
 
 # Separamos los datos de CABA en una tabla
@@ -61,4 +67,12 @@ datos_caba <- subset(datos_df, datos_df $Provincia == "CABA")
 
 litoral <- c("Formosa", "Chaco", "Misiones", "Corrientes", "Entre Ríos", "Santa Fe")
 datos_lit <- subset(datos_df, datos_df $ Provincia %in% litoral)
+
+# Y las de espacios verdes y practicas corporales tambien,
+
+practicas_corporales_litoral_df = subset(practicas_corporales_df, practicas_corporales_df$Provincia %in% litoral)
+practicas_corporales_caba_df    = subset(practicas_corporales_df, practicas_corporales_df$Provincia == "CABA")
+
+espacios_verdes_litoral_df = subset(espacios_verdes_df, espacios_verdes_df$Provincia %in% litoral)
+espacios_verdes_caba_df    = subset(espacios_verdes_df, espacios_verdes_df$Provincia == "CABA")
 

@@ -9,12 +9,12 @@ install.packages("readxl")
 library(googledrive)
 library(readxl)
 
-file_name = "Datos.xlsx"
+file_name = "/home/octavio/Probabilidad_y_Estadistica/TP1_PyE2024/barrios_populares/Datos.xlsx"
 
 # Descargamos datos del Relevamiento habitacional desde Google Drive
 # El archivo se descarga en el workign directory. Despues lo eliminamos.
-googledrive::drive_download(as_id("1sD01MGvlotrAZuC_xPXwwNd5ipwqCHbo"),
-                            overwrite = T)
+# googledrive::drive_download(as_id("1sD01MGvlotrAZuC_xPXwwNd5ipwqCHbo"),
+#                            overwrite = T)
 
 # Cargo el archivo como .xlsx
 datos <- readxl::read_excel(file_name, 
@@ -22,7 +22,7 @@ datos <- readxl::read_excel(file_name,
 														skip = 3)
 
 # Borramos el archivo
-file.remove(file_name)
+# file.remove(file_name)
 
 # Veo la estructura del dataset
 str(datos)
