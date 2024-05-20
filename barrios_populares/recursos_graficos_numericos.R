@@ -98,6 +98,49 @@ barplot(height = alumbrado_lit,
 
 # ESPACIOS DE PRACTICAS CORPORALES - TABLA DE FRECUENCIAS
 
+tot_poli_caba <- sum(practicas_corporales_caba_df $Polideportivo.municipal)
+tot_nat_caba <- sum(practicas_corporales_caba_df $Natatorio.municipal)
+tot_play_caba <- sum(practicas_corporales_caba_df $Playón.multiuso)
+tot_can_caba <- sum(practicas_corporales_caba_df $Cancha.de.futbol)
+tot_post_caba <- sum(practicas_corporales_caba_df $Posta.de.ejercicio)
+tot_ska_caba <- sum(practicas_corporales_caba_df  $Skatepark)
+tot_bal_caba <- sum(practicas_corporales_caba_df $Balnearios)
+tot_noex_caba <- sum(practicas_corporales_caba_df $No.existen.tales.espacios)
+tot_otr_caba <- sum(practicas_corporales_caba_df $Otro)
+
+porc_caba <- c(tot_poli_caba / length(practicas_corporales_caba_df $Polideportivo.municipal) * 100,
+          tot_nat_caba / length(practicas_corporales_caba_df $Natatorio.municipal) * 100,
+          tot_play_caba / length(practicas_corporales_caba_df $Playón.multiuso) * 100,
+          tot_can_caba / length(practicas_corporales_caba_df $Cancha.de.futbol) * 100,
+          tot_post_caba / length(practicas_corporales_caba_df $Posta.de.ejercicio) * 100,
+          tot_ska_caba / length(practicas_corporales_caba_df  $Skatepark) * 100,
+          tot_bal_caba / length(practicas_corporales_caba_df $Balnearios) * 100,
+          tot_noex_caba / length(practicas_corporales_caba_df $No.existen.tales.espacios) * 100,
+          tot_otr_caba / length(practicas_corporales_caba_df $Otro) * 100)
+
+dato_frec_espacios_caba <- data.frame(Espacio = colnames(practicas_corporales_caba_df), Porcentajes = porc_caba)
+
+tot_poli_lit <- sum(practicas_corporales_litoral_df $Polideportivo.municipal)
+tot_nat_lit <- sum(practicas_corporales_litoral_df $Natatorio.municipal)
+tot_play_lit <- sum(practicas_corporales_litoral_df $Playón.multiuso)
+tot_can_lit <- sum(practicas_corporales_litoral_df $Cancha.de.futbol)
+tot_post_lit <- sum(practicas_corporales_litoral_df $Posta.de.ejercicio)
+tot_ska_lit <- sum(practicas_corporales_litoral_df  $Skatepark)
+tot_bal_lit <- sum(practicas_corporales_litoral_df $Balnearios)
+tot_noex_lit <- sum(practicas_corporales_litoral_df $No.existen.tales.espacios)
+tot_otr_lit <- sum(practicas_corporales_litoral_df $Otro)
+
+porc_lit <- c(tot_poli_lit / length(practicas_corporales_litoral_df $Polideportivo.municipal) * 100,
+              tot_nat_lit / length(practicas_corporales_litoral_df $Natatorio.municipal) * 100,
+              tot_play_lit / length(practicas_corporales_litoral_df $Playón.multiuso) * 100,
+              tot_can_lit / length(practicas_corporales_litoral_df $Cancha.de.futbol) * 100,
+              tot_post_lit / length(practicas_corporales_litoral_df $Posta.de.ejercicio) * 100,
+              tot_ska_lit / length(practicas_corporales_litoral_df  $Skatepark) * 100,
+              tot_bal_lit / length(practicas_corporales_litoral_df $Balnearios) * 100,
+              tot_noex_lit / length(practicas_corporales_litoral_df $No.existen.tales.espacios) * 100,
+              tot_otr_lit / length(practicas_corporales_litoral_df $Otro) * 100)
+
+dato_frec_espacios_litoral <- data.frame(Espacio = colnames(practicas_corporales_litoral_df), Porcentajes = porc_lit)
 
 # ESPACIOS VERDES - TABLA DE FRECUENCIAS
 

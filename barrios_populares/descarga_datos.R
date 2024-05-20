@@ -26,3 +26,4 @@ file.remove(file_name)
 
 # Veo la estructura del dataset
 str(datos)
+
