@@ -26,3 +26,4 @@ datos <- readxl::read_excel(file_name,
 
 # Veo la estructura del dataset
 str(datos)
+
