@@ -38,6 +38,9 @@ barplot(height = cond_lugar_caba,
         horiz = FALSE,
         axes = TRUE,
         axisnames = TRUE,
+        main = "Condición del hogar de barrios populares en CABA",
+        xlab = "Condición",
+        ylab = "Hogares",
         ylim = c(0, 120),
         col = "#EC821E")
 
@@ -49,6 +52,9 @@ barplot(height = cond_lugar_lit,
         horiz = FALSE,
         axes = TRUE,
         axisnames = TRUE,
+        main = "Condición del hogar de barrios populares en el Litoral",
+        xlab = "Condición",
+        ylab = "Hogares",
         ylim = c(0, 140),
         col = "#1E8EEC")
 
@@ -65,6 +71,9 @@ barplot(height = veredas_caba,
         horiz = FALSE,
         axes = TRUE,
         axisnames = TRUE,
+        main = "Estado de veredas de barrios populares en CABA",
+        xlab = "Estado de veredas",
+        ylab = "Hogares",
         ylim = c(0, 200),
         col = "#EC821E")
 
@@ -73,6 +82,9 @@ barplot(height = veredas_lit,
         horiz = FALSE,
         axes = TRUE,
         axisnames = TRUE,
+        main = "Estado de veredas de barrios populares en el Litoral",
+        xlab = "Estado de veredas",
+        ylab = "Hogares",
         ylim = c(0, 200),
         col = "#1E8EEC")
 
@@ -85,6 +97,9 @@ barplot(height = alumbrado_caba,
         horiz = FALSE,
         axes = TRUE,
         axisnames = TRUE,
+        main = "Estado de alumbrado de barrios populares en CABA",
+        xlab = "Estado de alumbrado",
+        ylab = "Hogares",
         ylim = c(0, 200),
         col = "#EC821E")
 
@@ -93,6 +108,9 @@ barplot(height = alumbrado_lit,
         horiz = FALSE,
         axes = TRUE,
         axisnames = TRUE,
+        main = "Estado de veredas de barrios populares en el Litoral",
+        xlab = "Estado de alumbrado",
+        ylab = "Hogares",
         ylim = c(0, 200),
         col = "#1E8EEC")
 
