@@ -1,4 +1,7 @@
 # Aqui realizaremos las distintas graficas del TP
+color_litoral = "#1E8EEC"
+color_caba    = "#EC821E"
+
 
 # CANTIDAD INTEGRANTES - BASTONES
 
@@ -160,82 +163,126 @@ porc_lit <- c(tot_poli_lit / length(practicas_corporales_litoral_df $Polideporti
 
 dato_frec_espacios_litoral <- data.frame(Espacio = colnames(practicas_corporales_litoral_df), Porcentajes = porc_lit)
 
-# ESPACIOS VERDES - TABLA DE FRECUENCIAS
+# ESPACIOS VERDES - TABLA DE FRECUENCIAS (sin acumular, es opcion multiple)
+
+frecuencias_espacios_verdes_caba <- colSums(espacios_verdes_caba_df)
+frecuencias_espacios_verdes_litoral <- colSums(espacios_verdes_litoral_df)
+frecuencias_espacios_verdes_comparativa <- cbind(frecuencias_espacios_verdes_caba,
+                                                 frecuencias_espacios_verdes_litoral)
+colnames(frecuencias_espacios_verdes_comparativa) <- c("CABA", "Litoral")
+rownames(frecuencias_espacios_verdes_comparativa) <- c("Plazoleta (menos de 0.5 hectareas)",
+                                                       "Plaza (entre 0.5 y 5 hectareas)",
+                                                       "Parque urbano (mas de 5 hectareas)",
+                                                       "No existen")
 
 # PROVINCIA VS VEREDAS - GRAFICO DE BARRAS AGRUPADAS
-# PROVINCIA VS ALUMBRADO- GRAFICO DE BARRAS AGRUPADAS
-# PROVINCIA VS PRACTICAS CORPORALES - GRAFICO DE BARRAS AGRUPADAS
-
-# Suponiendo que las columnas de los dataframes son las prácticas corporales
-# Asegúrate de que tus datos estén en el formato correcto antes de continuar
-
-# Suponiendo que las columnas de los dataframes son las prácticas corporales
-# Asegúrate de que tus datos estén en el formato correcto antes de continuar
-
-# Excluir la primera columna (Provincia) // ya no hace falta, lo hice
-#directamente cuando limpie la tabla
-# practicas_corporales_caba_df <- practicas_corporales_caba_df[, -1]
-# practicas_corporales_litoral_df <- practicas_corporales_litoral_df[, -1]
-
-# Sumar las respuestas por columna para obtener el recuento total de cada práctica en cada región
-sum_caba <- colSums(practicas_corporales_caba_df)
-sum_litoral <- colSums(practicas_corporales_litoral_df)
-
-# Crear un dataframe con los datos agregados
-datos_agrupados <- data.frame(
-  Practica = names(sum_caba),
-  CABA = sum_caba,
-  Litoral = sum_litoral
-)
-
-# Graficar
-barplot(
-  #t(rbind(datos_agrupados$CABA, datos_agrupados$Litoral)),
-  rbind(sum_caba, sum_litoral),
-  beside = TRUE,
-  # legend.text = rownames(datos_agrupados),
-  # args.legend = list(title = "Región"),
-  col = c("lightgreen", "yellow"),
-  main = "Comparativa de prácticas corporales entre CABA y el Litoral",
-  xlab = "Prácticas Corporales",
-  ylab = "Cantidad",
-  cex.main = 1.2, # Tamaño del título
-  cex.lab = 1.2,  # Tamaño de etiquetas de ejes
-  cex.axis = 0.8, # Tamaño de los números de ejes
-  cex.names = 0.4, # Tamaño de los nombres de barras
-  las = 1
-)
-
-# PROVINCIA VS ESPACIOS VERDES - GRAFICO DE BARRAS AGRUPADAS
 
 tabla_caba_veredas    <- table(datos_caba$`Hay veredas`)
 tabla_litoral_veredas <- table(datos_lit$`Hay veredas`)
 
-tabla_combinada <- rbind(tabla_caba_veredas, tabla_litoral_veredas)
-rownames(tabla_combinada) <- c("CABA", "Litoral")
-maxval = max(max(tabla_caba), max(tabla_litoral))
+tabla_combinada_veredas <- rbind(tabla_caba_veredas, tabla_litoral_veredas)
+rownames(tabla_combinada_veredas) <- c("CABA", "Litoral")
+maxval = max(max(tabla_caba_veredas), max(tabla_litoral_veredas))
 
 # Crear el gráfico de barras agrupadas
-barplot(tabla_combinada, beside = TRUE, col = c("skyblue", "orange"),
+barplot(tabla_combinada_veredas, beside = TRUE, col = c("skyblue", "orange"),
         legend = rownames(tabla_combinada), 
         main = "Comparación de 'Hay veredas' entre CABA y Litoral",
         xlab = "Respuesta", ylab = "Frecuencia",
         args.legend = list(x = "topright", bty = "n"),
         ylim = c(0, 200))        
 
+
+# PROVINCIA VS ALUMBRADO- GRAFICO DE BARRAS AGRUPADAS
+
+tabla_caba_alumbrado    <- table(datos_caba$`Hay alumbrado publico`)
+tabla_litoral_alumbrado <- table(datos_lit$`Hay alumbrado publico`)
+
+tabla_combinada_alumbrado <- rbind(tabla_caba_alumbrado, tabla_litoral_alumbrado)
+rownames(tabla_combinada_alumbrado) <- c("CABA", "Litoral")
+maxval = max(max(tabla_caba_alumbrado), max(tabla_litoral_alumbrado))
+
+# Crear el gráfico de barras agrupadas
+barplot(tabla_combinada_alumbrado, beside = TRUE, col = c("skyblue", "orange"),
+        legend = rownames(tabla_combinada), 
+        main = "Comparación de 'Hay alumbrado publico' entre CABA y Litoral",
+        xlab = "Respuesta", ylab = "Frecuencia",
+        args.legend = list(x = "topright", bty = "n"),
+        ylim = c(0, 200))        
+
+
+# PROVINCIA VS PRACTICAS CORPORALES - GRAFICO DE BARRAS AGRUPADAS
+
+# Sumar las respuestas por columna para obtener el recuento total de cada 
+# espacio de prácticas corporales en cada región
+sum_caba_corporales <- colSums(practicas_corporales_caba_df)
+sum_litoral_corporales <- colSums(practicas_corporales_litoral_df)
+
+# Graficar
+barplot(
+  rbind(sum_caba_corporales, sum_litoral_corporales),
+  beside = TRUE,
+  legend.text = c("CABA", "Litoral"),
+  # args.legend = list(title = "Región"),
+  col = c(color_caba, color_litoral),
+  main = "Comparativa de espacios de prácticas corporales entre CABA y el Litoral",
+  xlab = "Espacios de Prácticas Corporales",
+  ylab = "Frecuencia",
+  cex.main = 1.2, # Tamaño del título
+  cex.lab = 1.2,  # Tamaño de etiquetas de ejes
+  cex.axis = 0.8, # Tamaño de los números de ejes
+  cex.names = 0.6, # Tamaño de los nombres de barras
+  names.arg = c("Polideportivo municipal", "Natatorio municipal",
+                "Playón multiuso", "Cancha de futból", "Posta de ejercicio",
+                "Skatepark", "Balnearios", "No existen", "Otro"),
+  las = 1
+  
+)
+
+# PROVINCIA VS ESPACIOS VERDES - GRAFICO DE BARRAS AGRUPADAS
+
+# Sumar las respuestas por columna para obtener el recuento total de cada 
+# espacio de prácticas corporales en cada región
+sum_caba_verdes <- colSums(espacios_verdes_caba_df)
+sum_litoral_verdes <- colSums(espacios_verdes_litoral_df)
+
+# Graficar
+barplot(
+  rbind(sum_caba_verdes, sum_litoral_verdes),
+  beside = TRUE,
+  legend.text = c("CABA", "Litoral"),
+  args.legend = list(title = "Región"),
+  col = c(color_caba, color_litoral),
+  main = "Comparativa de espacios verdes a menos de 500m entre CABA y el Litoral",
+  xlab = "Espacios verdes",
+  ylab = "Frecuencia",
+  cex.main = 1.2, # Tamaño del título
+  cex.lab = 1.2,  # Tamaño de etiquetas de ejes
+  cex.axis = 0.8, # Tamaño de los números de ejes
+  cex.names = 0.6, # Tamaño de los nombres de barras
+  names.arg = c("Plazoleta (menos de 0.5 hectareas)",
+                "Plaza (entre 0.5 y 5 hectareas)",
+                "Parque urbano (mas de 5 hectareas)",
+                "No existen"),
+  las = 1,
+  ylim = c(0, 200)
+)
+
+
 # PROVINCIA VS TIEMPO DE RESIDENCIA - BOXPLOT COMPARATIVO
 
 tiempo_litoral = datos_lit[["Tiempo de residencia"]]
 tiempo_caba    = datos_caba[["Tiempo de residencia"]]
 
-boxplot(tiempo_litoral, tiempo_caba,
-        names = c("Litoral", "CABA"),
+boxplot(tiempo_caba, tiempo_litoral,
+        names = c("CABA", "Litoral"),
         xlab = "Region",
         ylab = "Tiempo de residencia",
         main = "Comparacion de tiempo de residencia por region",
-        col  = "orange")
+        col  = c(color_caba, color_litoral))
 
 
 
 
 # INTEGRANES VS NRO MAXIMO DE PERSONAS - GRAFICO DE DISPERSION
+# No lo hacemos
