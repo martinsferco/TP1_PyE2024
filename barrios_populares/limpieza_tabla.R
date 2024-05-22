@@ -15,6 +15,9 @@ attach(datos)
 
 
 # Dataframe de variables de respuesta unica
+# Eliminamos la fila 1077 que tiene un tiempo de residencia incorrecto ( > 110)
+datos_df <- datos_df[-1077,]
+
 datos_df <- data.frame(...1, ...2, ...6, ...5, ...19, ...89, ...90, ...14)
 colnames(datos_df) <- c("Id", "Provincia", "Cantidad de integrantes", "Tiempo de residencia",
                         "Condicion del lugar que habitan", "Hay veredas", "Hay alumbrado publico",
@@ -40,7 +43,7 @@ colnames(espacios_verdes_df) <- c("Placita, plazoleta, paseo (Menos de 0,5 hectÃ
 # Modificamos los datos para su utilizacion #
 #############################################
 
-particiones_tiempo = seq(from = 0, to = 120, 5)
+particiones_tiempo = seq(from = 0, to = 70, 5)
 
 datos_df <- datos_df %>%
   mutate(
