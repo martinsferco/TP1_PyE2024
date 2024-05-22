@@ -219,6 +219,28 @@ abline( h = seq(0, 60, 10),
         lty = "dotted",
         col = "grey")
 
+# Version alternando las barras
+tabla_combinada_alumbrado <- cbind(tabla_caba_alumbrado, tabla_litoral_alumbrado)
+rownames(tabla_combinada_alumbrado) <- c("CABA", "Litoral")
+maxval = max(max(tabla_caba_alumbrado), max(tabla_litoral_alumbrado))
+
+barplot(tabla_combinada_alumbrado, beside = TRUE, col = c("lightblue", "blue", "darkblue"),
+        # legend = rownames(tabla_combinada_alumbrado), 
+        main = "Comparación de 'Hay alumbrado publico'\n entre CABA y el Litoral",
+        xlab = "Región", ylab = "Frecuencia (en %)",
+        args.legend = list(x = "topright", bty = "n"),
+        ylim = c(0, 80),
+        names.arg = c("CABA", "Litoral")
+)        
+
+legend("topright", legend = levels_estado, fill = c("lightblue", "blue", "darkblue"), ncol = 1, cex = 0.7, xpd = TRUE)
+
+
+abline( h = seq(0, 60, 10),
+        lty = "dotted",
+        col = "grey")
+
+
 # PROVINCIA VS PRACTICAS CORPORALES - 
 # Terminamos haciendo una tabla, ya que teniamos muchas categorias
 
