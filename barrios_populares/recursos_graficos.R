@@ -6,6 +6,8 @@ color_caba  <- "#FEBF00"
 # CANTIDAD INTEGRANTES 
 cantidad_integrantes_caba <- table(datos_caba$`Cantidad de integrantes`)
 
+png("graficos/cant_integrantes_caba.png", width = 800, height = 600, res = 100)
+
 plot( 
      cantidad_integrantes_caba,
      col= color_caba,
@@ -22,7 +24,7 @@ axis(side = 1, at = seq(0,10,1))
 abline( h = seq(0, 70, 10),
         lty = "dotted",)
 
-
+dev.off()
 cantidad_integrantes_lit <- table(datos_lit$`Cantidad de integrantes`)
 
 plot( 
