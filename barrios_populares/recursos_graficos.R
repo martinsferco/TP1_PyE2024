@@ -12,7 +12,7 @@ hist(x = datos_caba$`Tiempo de residencia`,
      right = FALSE,
      main = "Tiempo de residencia en CABA",
      xlab = "Tiempo de residencia (en años)",
-     ylab = "Frecuencia",
+     ylab = "Hogares",
      xaxt = "n",
      ylim = c(0, 100),
      col = color_caba
@@ -25,7 +25,7 @@ hist(x = datos_lit$`Tiempo de residencia`,
      right = FALSE,
      main = "Tiempo de residencia en el Litoral",
      xlab = "Tiempo de residencia (en años)",
-     ylab = "Frecuencia",
+     ylab = "Hogares",
      xaxt = "n",
      ylim = c(0, 100),
      col = color_litoral
@@ -34,7 +34,10 @@ hist(x = datos_lit$`Tiempo de residencia`,
 axis(side = 1, particiones_tiempo)
 
 
-# CONDICION DEL LUGAR QUE HABITAN - SECTORES
+# CONDICION DEL LUGAR QUE HABITAN
+# En principio iba a ser un grafico de sectores, pero no resulta claro
+# porque algunos sectores eran demasiado pequenios
+
 cond_lugar_caba <- table(datos_caba $`Condicion del lugar que habitan`)
 cond_lugar_caba <- cond_lugar_caba[order(cond_lugar_caba, decreasing = TRUE)]
 
@@ -50,7 +53,7 @@ barplot(height = cond_lugar_caba,
         col = "#EC821E")
 
 cond_lugar_lit <- table(datos_lit $`Condicion del lugar que habitan`)
-cond_lugar_lit <- cond_lugar_lit[order(names(cond_lugar_lit), decreasing = TRUE)]
+cond_lugar_lit <- cond_lugar_lit[order(cond_lugar_lit, decreasing = TRUE)]
 
 barplot(height = cond_lugar_lit,
         width = 1,
@@ -64,14 +67,25 @@ barplot(height = cond_lugar_lit,
         col = "#1E8EEC")
 
 # HAY VEREDAS - GRAFICO DE BARRAS ORDENADO POR CATEGORIA
-mi_orden <- factor(datos_caba $`Hay veredas`, levels = c("No", 
-                                                          "Sí, hechas por vecinxs", 
-                                                          "Sí, hechas por el Estado (municipio, provincia o Estado nacional"))
+levels_estado <- c("No", 
+                    "Sí, hechas por vecinxs", 
+                    "Sí, hechas por el Estado (municipio, provincia o Estado nacional)")
 
-veredas_caba <- table(datos_caba $`Hay veredas` [order(mi_orden)])
-veredas_lit <-  table(datos_lit $`Hay veredas` [order(mi_orden)])
+mi_orden <- factor(datos_caba $`Hay veredas`, levels = levels_estado)
 
+datos_caba_ordenados <- datos_caba
+datos_caba_ordenados$`Hay veredas` <- factor(datos_caba$`Hay veredas`, levels = levels_estado)
+
+datos_litoral_ordenados <- datos_lit
+datos_litoral_ordenados$`Hay veredas` <- factor(datos_lit$`Hay veredas`, levels = levels_estado)
+
+# Luego, crea la tabla con los datos ordenados
+veredas_caba <- table(datos_caba_ordenados$`Hay veredas`)
+veredas_litoral <- table(datos_litoral_ordenados$`Hay veredas`)
+
+# Ahora, crea el gráfico de barras
 barplot(height = veredas_caba,
+        names.arg = names(veredas_caba),  # Usa los nombres de las categorías
         width = 0.5,
         horiz = FALSE,
         axes = TRUE,
@@ -82,7 +96,7 @@ barplot(height = veredas_caba,
         ylim = c(0, 200),
         col = "#EC821E")
 
-barplot(height = veredas_lit,
+barplot(height = veredas_litoral,
         width = 0.5,
         horiz = FALSE,
         axes = TRUE,
@@ -94,8 +108,15 @@ barplot(height = veredas_lit,
         col = "#1E8EEC")
 
 # HAY ALUMBRADO PUBLICO - GRAFICO DE BARRAS ORDENADO POR CATEGORIA
-alumbrado_caba <- table(datos_caba $`Hay alumbrado publico` [order(mi_orden)])
-alumbrado_lit <- table(datos_lit $`Hay alumbrado publico` [order(mi_orden)])
+
+datos_caba_ordenados$`Hay alumbrado publico` <- factor(datos_caba$`Hay alumbrado publico`,
+                                                       levels = levels_estado)
+
+datos_litoral_ordenados$`Hay alumbrado publico` <- factor(datos_lit$`Hay alumbrado publico`,
+                                                          levels = levels_estado)
+
+alumbrado_caba <- table(datos_caba_ordenados $`Hay alumbrado publico`)
+alumbrado_lit <- table(datos_litoral_ordenados $`Hay alumbrado publico`)
 
 barplot(height = alumbrado_caba,
         width = 0.5,
@@ -179,16 +200,16 @@ rownames(frecuencias_espacios_verdes_comparativa) <- c("Plazoleta (menos de 0.5 
 
 # PROVINCIA VS VEREDAS - GRAFICO DE BARRAS AGRUPADAS
 
-tabla_caba_veredas    <- table(datos_caba$`Hay veredas`)
-tabla_litoral_veredas <- table(datos_lit$`Hay veredas`)
+tabla_caba_veredas    <- table(datos_caba_ordenados$`Hay veredas`)
+tabla_litoral_veredas <- table(datos_litoral_ordenados$`Hay veredas`)
 
 tabla_combinada_veredas <- rbind(tabla_caba_veredas, tabla_litoral_veredas)
 rownames(tabla_combinada_veredas) <- c("CABA", "Litoral")
 maxval = max(max(tabla_caba_veredas), max(tabla_litoral_veredas))
 
 # Crear el gráfico de barras agrupadas
-barplot(tabla_combinada_veredas, beside = TRUE, col = c("skyblue", "orange"),
-        legend = rownames(tabla_combinada), 
+barplot(tabla_combinada_veredas, beside = TRUE, col = c(color_caba, color_litoral),
+        legend = rownames(tabla_combinada_veredas), 
         main = "Comparación de 'Hay veredas' entre CABA y Litoral",
         xlab = "Respuesta", ylab = "Frecuencia",
         args.legend = list(x = "topright", bty = "n"),
