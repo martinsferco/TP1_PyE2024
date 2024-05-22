@@ -10,11 +10,12 @@ color_caba    = "#EC821E"
 hist(x = datos_caba$`Tiempo de residencia`,
      breaks = particiones_tiempo,
      right = FALSE,
-     main = "Tiempo de residencia CABA",
-     xlab = "Tiempo de residencia",
+     main = "Tiempo de residencia en CABA",
+     xlab = "Tiempo de residencia (en años)",
      ylab = "Frecuencia",
      xaxt = "n",
-     ylim = c(0, 100)
+     ylim = c(0, 100),
+     col = color_caba
      
   )
 axis(side = 1, particiones_tiempo)
@@ -22,11 +23,12 @@ axis(side = 1, particiones_tiempo)
 hist(x = datos_lit$`Tiempo de residencia`,
      breaks = particiones_tiempo,
      right = FALSE,
-     main = "Tiempo de residencia Litoral",
-     xlab = "Tiempo de residencia",
+     main = "Tiempo de residencia en el Litoral",
+     xlab = "Tiempo de residencia (en años)",
      ylab = "Frecuencia",
      xaxt = "n",
-     ylim = c(0, 100)
+     ylim = c(0, 100),
+     col = color_litoral
      
 )
 axis(side = 1, particiones_tiempo)
