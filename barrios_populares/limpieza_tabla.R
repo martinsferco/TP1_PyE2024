@@ -73,6 +73,6 @@ datos_lit <- subset(datos_df, datos_df $ Provincia %in% litoral)
 practicas_corporales_litoral_df = subset(practicas_corporales_df, practicas_corporales_df$Provincia %in% litoral)[,-1]
 practicas_corporales_caba_df    = subset(practicas_corporales_df, practicas_corporales_df$Provincia == "CABA")[,-1]
 
-espacios_verdes_litoral_df = subset(espacios_verdes_df, espacios_verdes_df$Provincia %in% litoral)
-espacios_verdes_caba_df    = subset(espacios_verdes_df, espacios_verdes_df$Provincia == "CABA")
+espacios_verdes_litoral_df = subset(espacios_verdes_df, espacios_verdes_df$Provincia %in% litoral)[, -1]
+espacios_verdes_caba_df    = subset(espacios_verdes_df, espacios_verdes_df$Provincia == "CABA")[, -1]
 
