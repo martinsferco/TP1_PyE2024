@@ -7,7 +7,7 @@ library(magrittr)
 library(dplyr)
 
 # Fijo las columnas del dataset
-attach(datos)
+attach(datos_df)
 
 #########################################################################
 # Guardamos las columnas de interes en distintas variables y dataframes #

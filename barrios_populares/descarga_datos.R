@@ -17,13 +17,10 @@ file_name = "/home/octavio/Probabilidad_y_Estadistica/TP1_PyE2024/barrios_popula
 #                            overwrite = T)
 
 # Cargo el archivo como .xlsx
-datos <- readxl::read_excel(file_name, 
+datos_df <- readxl::read_excel(file_name, 
 														col_names = FALSE, 
 														skip = 3)
 
 # Borramos el archivo
 # file.remove(file_name)
-
-# Veo la estructura del dataset
-str(datos)
 
