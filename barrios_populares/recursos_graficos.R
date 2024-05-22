@@ -2,6 +2,12 @@
 color_litoral <- "#B0926F"
 color_caba  <- "#FEBF00"
 
+legend_caba_litoral <- function() {
+  legend("top", legend = c("CABA", "Litoral"), fill = c(color_caba, color_litoral), ncol = 2, cex = 0.75, xpd = TRUE)
+}
+
+# Ahora podemos colocar siempre la misma leyenda con
+# legend_caba_litoral()
 
 # CANTIDAD INTEGRANTES 
 cantidad_integrantes_caba <- table(datos_caba$`Cantidad de integrantes`)
@@ -24,7 +30,7 @@ axis(side = 1, at = seq(0,10,1))
 abline( h = seq(0, 70, 10),
         lty = "dotted",)
 
-dev.off()
+# dev.off()
 cantidad_integrantes_lit <- table(datos_lit$`Cantidad de integrantes`)
 
 plot( 
@@ -129,13 +135,13 @@ maxval = max(max(tabla_caba_veredas), max(tabla_litoral_veredas))
 
 # Crear el gráfico de barras agrupadas
 barplot(tabla_combinada_veredas, beside = TRUE, col = c(color_caba, color_litoral),
-        legend = rownames(tabla_combinada_veredas), 
+        # legend = rownames(tabla_combinada_veredas), 
         main = "Comparación de 'Hay veredas' entre CABA y Litoral",
         xlab = "Respuesta", ylab = "Frecuencia",
         args.legend = list(x = "topright", bty = "n"),
         ylim = c(0, 200))        
 
-
+legend_caba_litoral()
 # PROVINCIA VS ALUMBRADO- GRAFICO DE BARRAS AGRUPADAS
 
 tabla_caba_alumbrado    <- table(datos_caba$`Hay alumbrado publico`)
@@ -147,12 +153,13 @@ maxval = max(max(tabla_caba_alumbrado), max(tabla_litoral_alumbrado))
 
 # Crear el gráfico de barras agrupadas
 barplot(tabla_combinada_alumbrado, beside = TRUE, col = c(color_caba, color_litoral),
-        legend = rownames(tabla_combinada_alumbrado), 
+        # legend = rownames(tabla_combinada_alumbrado), 
         main = "Comparación de 'Hay alumbrado publico' entre CABA y Litoral",
         xlab = "Respuesta", ylab = "Frecuencia",
         args.legend = list(x = "topright", bty = "n"),
         ylim = c(0, 200))        
 
+legend_caba_litoral()
 
 # PROVINCIA VS PRACTICAS CORPORALES - 
 # Terminamos haciendo una tabla, ya que teniamos muchas categorias
@@ -188,16 +195,14 @@ sum_litoral_verdes <- colSums(espacios_verdes_litoral_df)
 barplot(
   rbind(sum_caba_verdes, sum_litoral_verdes),
   beside = TRUE,
-  legend.text = c("CABA", "Litoral"),
-  args.legend = list(title = "Región"),
   col = c(color_caba, color_litoral),
   main = "Comparativa de espacios verdes a menos de 500m entre CABA y el Litoral",
   xlab = "Espacios verdes",
   ylab = "Frecuencia",
-  cex.main = 1.2, # Tamaño del título
-  cex.lab = 1.2,  # Tamaño de etiquetas de ejes
-  cex.axis = 0.8, # Tamaño de los números de ejes
-  cex.names = 0.6, # Tamaño de los nombres de barras
+  cex.main = 1.2,
+  cex.lab = 1.2,
+  cex.axis = 0.8,
+  cex.names = 0.6,
   names.arg = c("Plazoleta (menos de 0.5 hectareas)",
                 "Plaza (entre 0.5 y 5 hectareas)",
                 "Parque urbano (mas de 5 hectareas)",
@@ -205,4 +210,8 @@ barplot(
   las = 1,
   ylim = c(0, 200)
 )
+
+# Agregamos la leyenda con los colores de cada region
+legend_caba_litoral()
+
 
