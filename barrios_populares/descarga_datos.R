@@ -1,15 +1,15 @@
 # Instalo los paquetes necesarios (si aún no los tengo instalados)
 
+# install.packages("googledrive")
+# install.packages("readxl")
+
 # Si hay problemas para instalar el paquete "googledrive" proba instalando
 # sudo apt-get install libcurl4-openssl-dev
-
-install.packages("googledrive") # No funciona la instalacion
-install.packages("readxl")
 
 library(googledrive)
 library(readxl)
 
-file_name = "/home/octavio/Probabilidad_y_Estadistica/TP1_PyE2024/barrios_populares/Datos.xlsx"
+file_name = "Datos.xlsx"
 
 # Descargamos datos del Relevamiento habitacional desde Google Drive
 # El archivo se descarga en el workign directory. Despues lo eliminamos.

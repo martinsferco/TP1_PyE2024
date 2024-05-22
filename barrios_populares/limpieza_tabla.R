@@ -1,5 +1,5 @@
 # Instalo los paquetes necesarios (si aún no los tengo instalados)
-install.packages("tidyverse")
+# install.packages("tidyverse")
 
 # Cargo los paquetes que voy a usar
 library(tidyverse)
@@ -12,7 +12,6 @@ attach(datos_df)
 #########################################################################
 # Guardamos las columnas de interes en distintas variables y dataframes #
 #########################################################################
-
 
 # Dataframe de variables de respuesta unica
 # Eliminamos la fila 1077 que tiene un tiempo de residencia incorrecto ( > 110)
