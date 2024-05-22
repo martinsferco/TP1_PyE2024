@@ -158,10 +158,22 @@ barplot(tabla_combinada_alumbrado, beside = TRUE, col = c(color_caba, color_lito
 # Sumar las respuestas por columna para obtener el recuento total de cada 
 # espacio de prácticas corporales en cada región
 
-prop_espacios_prac_corp_caba <- colSums(practicas_corporales_caba_df) / nrow(practicas_corporales_caba_df) 
-prop_espacios_prac_corp_caba <- round(prop_espacios_prac_corp_caba, digits = 4)
-prop_espacios_prac_corp_lit <- colSums(practicas_corporales_litoral_df) / nrow(practicas_corporales_litoral_df) 
-prop_espacios_prac_corp_lit <- round(prop_espacios_prac_corp_lit, digits = 4)
+frecuencia_espacios_prac_corp_caba <- sort(colSums(practicas_corporales_caba_df), decreasing = TRUE)
+
+prop_espacios_prac_corp_caba <- sort(frecuencia_espacios_prac_corp_caba / nrow(practicas_corporales_caba_df) * 100,
+                                     decreasing = TRUE)
+prop_espacios_prac_corp_caba <- round(x = prop_espacios_prac_corp_caba, digits = 2)
+
+tabla_espacios_prac_corp_caba = data.frame(frecuencia_espacios_prac_corp_caba, prop_espacios_prac_corp_caba)
+
+
+frecuencia_espacios_prac_corp_lit  <- sort(colSums(practicas_corporales_litoral_df), decreasing = TRUE)
+
+prop_espacios_prac_corp_lit <- sort(frecuencia_espacios_prac_corp_lit / nrow(practicas_corporales_litoral_df) * 100,
+                                    decreasing = TRUE)
+prop_espacios_prac_corp_lit <- round(x = prop_espacios_prac_corp_lit, digits = 2)
+
+tabla_espacios_prac_corp_lit = data.frame(frecuencia_espacios_prac_corp_lit, prop_espacios_prac_corp_lit)
 
 # PROVINCIA VS ESPACIOS VERDES - GRAFICO DE BARRAS AGRUPADAS
 
