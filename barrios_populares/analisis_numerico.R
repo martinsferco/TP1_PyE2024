@@ -5,7 +5,15 @@
 library(modeest)
 
 # CANTIDAD INTEGRANTES - NO SE CUAL MEDIDA USAR
+mediana_caba_cant_integrantes <- median(datos_caba$`Cantidad de integrantes`)
+cuartiles_caba_cant_integrantes <- quantile(datos_caba$`Cantidad de integrantes`, c(0.25,0.5,0.75))
+ranInter_caba_cant_integrantes <- cuartiles_caba_cant_integrantes[3] - cuartiles_caba_cant_integrantes[1]
+ranInter_caba_cant_integrantes <- as.numeric(ranInter_caba_cant_integrantes)
 
+mediana_lit_cant_integrantes <- median(datos_lit$`Cantidad de integrantes`)
+cuartiles_lit_cant_integrantes <- quantile(datos_lit$`Cantidad de integrantes`, c(0.25,0.5,0.75))
+ranInter_lit_cant_integrantes <- cuartiles_lit_cant_integrantes[3] - cuartiles_lit_cant_integrantes[1]
+ranInter_lit_cant_integrantes <- as.numeric(ranInter_lit_cant_integrantes)
 
 # TIEMPO DE RESIDENCIA
 # Al ver el histograma, notamos en ambos graficos, una distribucion asimetrica
