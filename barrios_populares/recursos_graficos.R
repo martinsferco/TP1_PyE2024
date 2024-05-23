@@ -1,4 +1,3 @@
-#color_litoral = "#1E8EEC"
 color_litoral <- "#B0926F"
 color_caba  <- "#FEBF00"
 
@@ -15,42 +14,48 @@ legend_caba_litoral <- function() {
 # CANTIDAD INTEGRANTES 
 cantidad_integrantes_caba <- table(datos_caba$`Cantidad de integrantes`)
 
-png("graficos/cant_integrantes_caba.png", width = 800, height = 600, res = 100)
+# png("graficos/cant_integrantes_caba.png", width = 800, height = 600, res = 100)
+
+porcentaje_cant_integrantes_caba <- cantidad_integrantes_caba / nrow(datos_caba) * 100
 
 plot( 
-     cantidad_integrantes_caba,
+     porcentaje_cant_integrantes_caba,
      col= color_caba,
      main = "Cantidad integrantes por hogar en CABA",
      type = "h",
      xaxt = "n",
-     ylim = c(0,70),
+     ylim = c(0,25),
      xlab = "Cantidad de integrantes",
-     ylab = "Frecuencia"
+     ylab = "Porcentaje (%)"
 )
 
 axis(side = 1, at = seq(0,10,1))
 
-abline( h = seq(0, 70, 10),
+abline( h = seq(0, 25, 5),
         lty = "dotted",
         col = color_caba)
 
 # dev.off()
+
+
 cantidad_integrantes_lit <- table(datos_lit$`Cantidad de integrantes`)
 
+porcentaje_cantidad_integranes_lit <- cantidad_integrantes_lit / nrow(datos_lit) * 100
+
 plot( 
-  cantidad_integrantes_lit,
+  porcentaje_cantidad_integranes_lit,
   col = color_litoral,
   main = "Cantidad integrantes por hogar en el Litoral",
   type = "h",
   xaxt = "n",
-  ylim = c(0,70),
+  ylim = c(0,25),
   xlab = "Cantidad de integrantes",
-  ylab = "Frecuencia"
+  ylab = "Porcentaje (%)"
 )
 
 axis(side = 1, at = seq(0,10,1))
 
-abline( h = seq(0, 80, 10),
+abline( h = seq(0, 25, 5),
         lty = "dotted",
         col = color_litoral)
 
@@ -60,19 +65,20 @@ library(lattice)
 
 histogram(datos_caba$`Tiempo de residencia`,
           col = color_caba,
-          main = "Histograma de frecuencia relativa del tiempo de residencia en CABA",
+          main = "Histograma de porcentaje del tiempo de residencia en CABA",
           xlab = "Tiempo de residencia (en años)",
           ylab = "Hogares (en %)",
           ylim = c(0, 45),
           xlim = c(-5, 65),
           breaks = particiones_tiempo,
           outer = FALSE,
-          data = "percent"
+          data = "percent",
+          scales =
 )
 
 histogram(datos_lit$`Tiempo de residencia`,
           col = color_litoral,
-          main = "Histograma de frecuencia relativa del tiempo de residencia en el Litoral",
+          main = "Histograma de porcentaje del tiempo de residencia en el Litoral",
           xlab = "Tiempo de residencia (en años)",
           ylab = "Hogares (en %)",
           ylim = c(0, 45),
@@ -82,45 +88,8 @@ histogram(datos_lit$`Tiempo de residencia`,
           data = "percent"
 )
 
-# hist(x = datos_lit$`Tiempo de residencia`,
-#      breaks = particiones_tiempo,
-#      right = FALSE,
-#      main = "Tiempo de residencia en el Litoral",
-#      xlab = "Tiempo de residencia (en años)",
-#      ylab = "Hogares",
-#      xaxt = "n",
-#      ylim = c(0, 80),
-#      col = color_litoral
-#      
-# )
-# 
-# axis(side = 1, particiones_tiempo)
-# 
-# abline( h = seq(0, 80, 10),
-#         lty = "dotted",
-#         col = color_litoral)
-# 
-#hist(x = datos_caba$`Tiempo de residencia`,
-#     breaks = particiones_tiempo,
-#     right = FALSE,
-#     main = "Tiempo de residencia en CABA",
-#     xlab = "Tiempo de residencia (en años)",
-#     ylab = "Hogares",
-#     xaxt = "n",
-#     ylim = c(0, 80),
-#     col = color_caba,
-#)
-#axis(side = 1, particiones_tiempo)
-
-#abline( h = seq(0, 80, 10),
-#        lty = "dotted",
-#        col = color_caba)
-
 
 # CONDICION DEL LUGAR QUE HABITAN
-# En principio iba a ser un grafico de sectores, pero no resulta claro
-# porque algunos sectores eran demasiado pequenios
-
 cond_lugar_caba <- (table(datos_caba $`Condicion del lugar que habitan`) / cant_entradas_caba) * 100
 cond_lugar_caba <- cond_lugar_caba[order(cond_lugar_caba, decreasing = TRUE)]
 
@@ -155,13 +124,20 @@ abline( h = seq(0, 60, 10),
         lty = "dotted",
         col = color_litoral)
 
+
+
+
+
+
+
 # PROVINCIA VS VEREDAS - GRAFICO DE BARRAS AGRUPADAS
 levels_estado <- c("No", 
                    "Sí, hechas por vecinxs", 
                    "Sí, hechas por el Estado (municipio, provincia o Estado nacional)")
 
-mi_orden <- factor(datos_caba $`Hay veredas`, levels = levels_estado)
-
+color_no <- "#EDBB99"
+color_si_vecinos <- "#DC7633"
+color_si_estado <- "#BA4A00"
 
 datos_caba_ordenados <- datos_caba
 datos_caba_ordenados$`Hay veredas` <- factor(datos_caba$`Hay veredas`, levels = levels_estado)
@@ -170,26 +146,37 @@ datos_litoral_ordenados <- datos_lit
 datos_litoral_ordenados$`Hay veredas` <- factor(datos_lit$`Hay veredas`, levels = levels_estado)
 
 
-tabla_caba_veredas    <- (table(datos_caba_ordenados$`Hay veredas`) / cant_entradas_caba) * 100
-tabla_litoral_veredas <- (table(datos_litoral_ordenados$`Hay veredas`) / cant_entradas_litoral) * 100
+tabla_porcentajes_caba_veredas    <- (table(datos_caba_ordenados$`Hay veredas`) / cant_entradas_caba) * 100
+tabla_porcentajes_litoral_veredas <- (table(datos_litoral_ordenados$`Hay veredas`) / cant_entradas_litoral) * 100
 
-tabla_combinada_veredas <- rbind(tabla_caba_veredas, tabla_litoral_veredas)
-rownames(tabla_combinada_veredas) <- c("CABA", "Litoral")
-maxval = max(max(tabla_caba_veredas), max(tabla_litoral_veredas))
 
-# Crear el gráfico de barras agrupadas
-barplot(tabla_combinada_veredas, beside = TRUE, col = c(color_caba, color_litoral),
-        # legend = rownames(tabla_combinada_veredas), 
-        main = "Comparación de 'Hay veredas' entre CABA y Litoral",
-        xlab = "Respuesta", ylab = "Frecuencia (en %)",
+# Version alternando las barras
+tabla_porcentajes_combinada_veredas <- cbind(tabla_porcentajes_caba_veredas, tabla_porcentajes_litoral_veredas)
+colnames(tabla_porcentajes_combinada_veredas) <- c("CABA", "Litoral")
+maxval = max(max(tabla_porcentajes_caba_veredas), max(tabla_porcentajes_litoral_veredas))
+
+
+
+barplot(tabla_porcentajes_combinada_veredas, beside = TRUE, col = c(color_no, color_si_vecinos, color_si_estado),
+        # legend = rownames(tabla_combinada_alumbrado), 
+        main = "Comparación de 'Hay veredas'\n entre CABA y el Litoral",
+        xlab = "Región", ylab = "Porcentaje (en %)",
         args.legend = list(x = "topright", bty = "n"),
-        ylim = c(0, 60))        
+        ylim = c(0, maxval + 30),
+        names.arg = c("CABA", "Litoral")
+)        
 
-legend_caba_litoral()
+legend("topright", legend = levels_estado, fill = c(color_no, color_si_vecinos, color_si_estado), ncol = 1, cex = 0.7, xpd = TRUE)
+
 
 abline( h = seq(0, 60, 10),
         lty = "dotted",
         col = "grey")
+
+
+
+
+
 
 # PROVINCIA VS ALUMBRADO- GRAFICO DE BARRAS AGRUPADAS
 
@@ -204,36 +191,21 @@ tabla_combinada_alumbrado <- rbind(tabla_caba_alumbrado, tabla_litoral_alumbrado
 rownames(tabla_combinada_alumbrado) <- c("CABA", "Litoral")
 maxval = max(max(tabla_caba_alumbrado), max(tabla_litoral_alumbrado))
 
-# Crear el gráfico de barras agrupadas
-barplot(tabla_combinada_alumbrado, beside = TRUE, col = c(color_caba, color_litoral),
-        # legend = rownames(tabla_combinada_alumbrado), 
-        main = "Comparación de 'Hay alumbrado publico' entre CABA y Litoral",
-        xlab = "Respuesta", ylab = "Frecuencia (en %)",
-        args.legend = list(x = "topright", bty = "n"),
-        ylim = c(0, 60))        
-
-legend("top", legend = c("CABA", "Litoral"), fill = c(color_caba, color_litoral), ncol = 2, cex = 0.75, xpd = TRUE)
-
-
-abline( h = seq(0, 60, 10),
-        lty = "dotted",
-        col = "grey")
-
 # Version alternando las barras
 tabla_combinada_alumbrado <- cbind(tabla_caba_alumbrado, tabla_litoral_alumbrado)
-rownames(tabla_combinada_alumbrado) <- c("CABA", "Litoral")
+colnames(tabla_combinada_alumbrado) <- c("CABA", "Litoral")
 maxval = max(max(tabla_caba_alumbrado), max(tabla_litoral_alumbrado))
 
-barplot(tabla_combinada_alumbrado, beside = TRUE, col = c("lightblue", "blue", "darkblue"),
+barplot(tabla_combinada_alumbrado, beside = TRUE, col = c(color_no, color_si_vecinos, color_si_estado), 
         # legend = rownames(tabla_combinada_alumbrado), 
         main = "Comparación de 'Hay alumbrado publico'\n entre CABA y el Litoral",
-        xlab = "Región", ylab = "Frecuencia (en %)",
+        xlab = "Región", ylab = "Porcentaje (en %)",
         args.legend = list(x = "topright", bty = "n"),
-        ylim = c(0, 80),
+        ylim = c(0, maxval + 30),
         names.arg = c("CABA", "Litoral")
 )        
 
-legend("topright", legend = levels_estado, fill = c("lightblue", "blue", "darkblue"), ncol = 1, cex = 0.7, xpd = TRUE)
+legend("topright", legend = levels_estado, fill = c(color_no, color_si_vecinos, color_si_estado), ncol = 1, cex = 0.7, xpd = TRUE)
 
 
 abline( h = seq(0, 60, 10),
@@ -274,31 +246,39 @@ sum_litoral_verdes <- (colSums(espacios_verdes_litoral_df) / cant_entradas_litor
 reorden_sum_caba_verdes <- c(sum_caba_verdes[4], sum_caba_verdes[1:3])
 reorden_sum_litoral_verdes <- c(sum_litoral_verdes[4], sum_litoral_verdes[1:3])
 
+porcentaje_caba_verdes <- reorden_sum_caba_verdes / nrow(datos_caba) * 100
+porcentaje_litoral_verdes <- reorden_sum_litoral_verdes / nrow(datos_lit) * 100
+
+color_no_existen <- "#EDBB99"
+color_plazoleta <- "#DC7633"
+color_plaza <- "#BA4A00"
+color_parque_urbano <- "#784212"
+
+levels_parques <- c("No existen",
+                    "Plazoleta (menos de 0.5 hectareas)",
+                    "Plaza (entre 0.5 y 5 hectareas)",
+                    "Parque urbano (mas de 5 hectareas)")
+
 # Graficar con los datos reordenados
 barplot(
-  rbind(reorden_sum_caba_verdes, reorden_sum_litoral_verdes),
+  cbind(porcentaje_caba_verdes, porcentaje_litoral_verdes),
   beside = TRUE,
-  col = c(color_caba, color_litoral),
+  col = c(color_no_existen, color_plazoleta, color_plaza, color_parque_urbano),
   main = "Comparativa de espacios verdes a menos de 500m del hogar",
-  xlab = "Espacios verdes",
-  ylab = "Frecuencia",
+  xlab = "Region",
+  ylab = "Porcentaje (%)",
   cex.main = 1.2,
   cex.lab = 1.2,
   cex.axis = 0.8,
   cex.names = 1,
-  names.arg = c("No existen",
-                "Plazoleta (menos de 0.5 hectareas)",
-                "Plaza (entre 0.5 y 5 hectareas)",
-                "Parque urbano (mas de 5 hectareas)"),
+  names.arg = c("CABA", "Litoral"),
   las = 1,
-  ylim = c(0, 80)
+  ylim = c(0, 30)
 )
 
-abline( h = seq(0, 80, 10),
+abline( h = seq(0, 30, 5),
         lty = "dotted",
         col = "grey")
 
-# Agregamos la leyenda con los colores de cada region
-legend_caba_litoral()
-
+legend("topright", legend = levels_parques, fill = c(color_no_existen, color_plazoleta, color_plaza, color_parque_urbano), ncol = 1, cex = 0.7, xpd = TRUE)
 
