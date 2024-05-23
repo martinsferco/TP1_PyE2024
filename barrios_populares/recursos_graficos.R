@@ -94,7 +94,7 @@ dev.off()
 cond_lugar_caba <- (table(datos_caba $`Condicion del lugar que habitan`) / cant_entradas_caba) * 100
 cond_lugar_caba <- cond_lugar_caba[order(cond_lugar_caba, decreasing = TRUE)]
 
-names_corregidos <- names(cond_lugar_lit)
+names_corregidos <- names(cond_lugar_caba)
 names_corregidos[2] <- "Propio con comprobante de tenencia"
 
 png("graficos/condicion_caba.png", width = 1600, height = 600, res = 100)
@@ -305,3 +305,4 @@ abline( h = seq(0, 80, 10),
 
 legend("topright", legend = levels_parques, fill = c(color_no_existen, color_plazoleta, color_plaza, color_parque_urbano), ncol = 1, cex = 0.7, xpd = TRUE)
 dev.off()
+
