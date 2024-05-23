@@ -94,11 +94,15 @@ dev.off()
 cond_lugar_caba <- (table(datos_caba $`Condicion del lugar que habitan`) / cant_entradas_caba) * 100
 cond_lugar_caba <- cond_lugar_caba[order(cond_lugar_caba, decreasing = TRUE)]
 
+names_corregidos <- names(cond_lugar_lit)
+names_corregidos[2] <- "Propio con comprobante de tenencia"
+
 png("graficos/condicion_caba.png", width = 1600, height = 600, res = 100)
 barplot(height = cond_lugar_caba,
         horiz = FALSE,
         axes = TRUE,
         axisnames = TRUE,
+        names.arg = names_corregidos,
         main = "Condición del hogar de barrios populares en CABA",
         xlab = "Condición",
         ylab = "Hogares (en %)",
@@ -113,11 +117,14 @@ dev.off()
 cond_lugar_lit <- (table(datos_lit $`Condicion del lugar que habitan`) / cant_entradas_litoral) * 100
 cond_lugar_lit <- cond_lugar_lit[order(cond_lugar_lit, decreasing = TRUE)]
 
+
+
 png("graficos/condicion_litoral.png", width = 1600, height = 600, res = 100)
 barplot(height = cond_lugar_lit,
         horiz = FALSE,
         axes = TRUE,
         axisnames = TRUE,
+        names.arg = names_corregidos,
         main = "Condición del hogar de barrios populares en el Litoral",
         xlab = "Condición",
         ylab = "Hogares (en %)",
@@ -224,22 +231,35 @@ dev.off()
 # Sumar las respuestas por columna para obtener el recuento total de cada 
 # espacio de prácticas corporales en cada región
 
-frecuencia_espacios_prac_corp_caba <- sort(colSums(practicas_corporales_caba_df), decreasing = TRUE)
+# frecuencia_espacios_prac_corp_caba <- sort(colSums(practicas_corporales_caba_df), decreasing = TRUE)
 
-prop_espacios_prac_corp_caba <- sort(frecuencia_espacios_prac_corp_caba / nrow(practicas_corporales_caba_df) * 100,
-                                     decreasing = TRUE)
+frecuencia_espacios_prac_corp_caba <- colSums(practicas_corporales_caba_df)
+
+# prop_espacios_prac_corp_caba <- sort(frecuencia_espacios_prac_corp_caba / nrow(practicas_corporales_caba_df) * 100,
+#                                     decreasing = TRUE)
+prop_espacios_prac_corp_caba <- frecuencia_espacios_prac_corp_caba / nrow(practicas_corporales_caba_df) * 100
+                                     
+
 prop_espacios_prac_corp_caba <- round(x = prop_espacios_prac_corp_caba, digits = 2)
 
 tabla_espacios_prac_corp_caba = data.frame(frecuencia_espacios_prac_corp_caba, prop_espacios_prac_corp_caba)
 
 
-frecuencia_espacios_prac_corp_lit  <- sort(colSums(practicas_corporales_litoral_df), decreasing = TRUE)
+# frecuencia_espacios_prac_corp_lit  <- sort(colSums(practicas_corporales_litoral_df), decreasing = TRUE)
 
-prop_espacios_prac_corp_lit <- sort(frecuencia_espacios_prac_corp_lit / nrow(practicas_corporales_litoral_df) * 100,
-                                    decreasing = TRUE)
+frecuencia_espacios_prac_corp_lit  <- colSums(practicas_corporales_litoral_df)
+
+# prop_espacios_prac_corp_lit <- sort(frecuencia_espacios_prac_corp_lit / nrow(practicas_corporales_litoral_df) * 100,
+#                                     decreasing = TRUE)
+
+prop_espacios_prac_corp_lit <- frecuencia_espacios_prac_corp_lit / nrow(practicas_corporales_litoral_df) * 100
+
 prop_espacios_prac_corp_lit <- round(x = prop_espacios_prac_corp_lit, digits = 2)
 
 tabla_espacios_prac_corp_lit = data.frame(frecuencia_espacios_prac_corp_lit, prop_espacios_prac_corp_lit)
+
+combined_df <- bind_cols(tabla_espacios_prac_corp_caba, tabla_espacios_prac_corp_lit)
+
 
 # PROVINCIA VS ESPACIOS VERDES - GRAFICO DE BARRAS AGRUPADAS
 
