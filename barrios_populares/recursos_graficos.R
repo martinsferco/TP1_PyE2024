@@ -95,9 +95,9 @@ cond_lugar_caba <- (table(datos_caba $`Condicion del lugar que habitan`) / cant_
 cond_lugar_caba <- cond_lugar_caba[order(cond_lugar_caba, decreasing = TRUE)]
 
 names_corregidos <- names(cond_lugar_caba)
-names_corregidos[2] <- "Propio con comprobante de tenencia"
+names_corregidos[3] <- "Propio con comprobante de tenencia"
 
-png("graficos/condicion_caba.png", width = 1600, height = 600, res = 100)
+png("graficos/condicion_caba.png", width = 1700, height = 600, res = 100)
 barplot(height = cond_lugar_caba,
         horiz = FALSE,
         axes = TRUE,
@@ -117,9 +117,10 @@ dev.off()
 cond_lugar_lit <- (table(datos_lit $`Condicion del lugar que habitan`) / cant_entradas_litoral) * 100
 cond_lugar_lit <- cond_lugar_lit[order(cond_lugar_lit, decreasing = TRUE)]
 
+names_corregidos <- names(cond_lugar_lit)
+names_corregidos[2] <- "Propio con comprobante de tenencia"
 
-
-png("graficos/condicion_litoral.png", width = 1600, height = 600, res = 100)
+png("graficos/condicion_litoral.png", width = 1700, height = 600, res = 100)
 barplot(height = cond_lugar_lit,
         horiz = FALSE,
         axes = TRUE,
