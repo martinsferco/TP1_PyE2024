@@ -12,7 +12,7 @@ library(readxl)
 file_name = "Datos.xlsx"
 
 # Descargamos datos del Relevamiento habitacional desde Google Drive
-# El archivo se descarga en el workign directory. Despues lo eliminamos.
+# El archivo se descarga en el working directory.
 # googledrive::drive_download(as_id("1sD01MGvlotrAZuC_xPXwwNd5ipwqCHbo"),
 #                            overwrite = T)
 
@@ -22,5 +22,5 @@ datos_df <- readxl::read_excel(file_name,
 														skip = 3)
 
 # Borramos el archivo
-# file.remove(file_name)
+file.remove(file_name)
 
