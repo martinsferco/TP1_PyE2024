@@ -1,3 +1,10 @@
+#install.packages("kableExtra")
+#install.packages("knitr")
+
+library(kableExtra)
+library(knitr)
+
+
 color_litoral <- "#B0926F"
 color_caba  <- "#FEBF00"
 
@@ -232,32 +239,58 @@ dev.off()
 # Sumar las respuestas por columna para obtener el recuento total de cada 
 # espacio de prácticas corporales en cada región
 
-# frecuencia_espacios_prac_corp_caba <- sort(colSums(practicas_corporales_caba_df), decreasing = TRUE)
+frecuencia_espacios_prac_corp_caba <- sort(colSums(practicas_corporales_caba_df), decreasing = TRUE)
 
-frecuencia_espacios_prac_corp_caba <- colSums(practicas_corporales_caba_df)
+# frecuencia_espacios_prac_corp_caba <- colSums(practicas_corporales_caba_df)
 
-# prop_espacios_prac_corp_caba <- sort(frecuencia_espacios_prac_corp_caba / nrow(practicas_corporales_caba_df) * 100,
-#                                     decreasing = TRUE)
-prop_espacios_prac_corp_caba <- frecuencia_espacios_prac_corp_caba / nrow(practicas_corporales_caba_df) * 100
+prop_espacios_prac_corp_caba <- sort(frecuencia_espacios_prac_corp_caba / nrow(practicas_corporales_caba_df) * 100,
+                                     decreasing = TRUE)
+# prop_espacios_prac_corp_caba <- frecuencia_espacios_prac_corp_caba / nrow(practicas_corporales_caba_df) * 100
                                      
 
 prop_espacios_prac_corp_caba <- round(x = prop_espacios_prac_corp_caba, digits = 2)
 
-tabla_espacios_prac_corp_caba = data.frame(frecuencia_espacios_prac_corp_caba, prop_espacios_prac_corp_caba)
+tabla_espacios_prac_corp_caba = data.frame(prop_espacios_prac_corp_caba)
+colnames(tabla_espacios_prac_corp_caba) <- c("Proporción (%)")
+rownames(tabla_espacios_prac_corp_caba) <- c("Cancha de fútbol",
+                                             "Polideportivo municipal",
+                                             "Otro",
+                                             "No existen tales espacios",
+                                             "Playón multiuso",
+                                             "Posta de ejercicio",
+                                             "Skatepark",
+                                             "Natatorio municipal",
+                                             "Balnearios")
 
+kable(tabla_espacios_prac_corp_caba, format = "html", table.attr = "class='table table-striped'") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
 
-# frecuencia_espacios_prac_corp_lit  <- sort(colSums(practicas_corporales_litoral_df), decreasing = TRUE)
+frecuencia_espacios_prac_corp_lit  <- sort(colSums(practicas_corporales_litoral_df), decreasing = TRUE)
 
-frecuencia_espacios_prac_corp_lit  <- colSums(practicas_corporales_litoral_df)
+# frecuencia_espacios_prac_corp_lit  <- colSums(practicas_corporales_litoral_df)
 
-# prop_espacios_prac_corp_lit <- sort(frecuencia_espacios_prac_corp_lit / nrow(practicas_corporales_litoral_df) * 100,
-#                                     decreasing = TRUE)
+prop_espacios_prac_corp_lit <- sort(frecuencia_espacios_prac_corp_lit / nrow(practicas_corporales_litoral_df) * 100,
+                                     decreasing = TRUE)
 
-prop_espacios_prac_corp_lit <- frecuencia_espacios_prac_corp_lit / nrow(practicas_corporales_litoral_df) * 100
+# prop_espacios_prac_corp_lit <- frecuencia_espacios_prac_corp_lit / nrow(practicas_corporales_litoral_df) * 100
 
 prop_espacios_prac_corp_lit <- round(x = prop_espacios_prac_corp_lit, digits = 2)
 
-tabla_espacios_prac_corp_lit = data.frame(frecuencia_espacios_prac_corp_lit, prop_espacios_prac_corp_lit)
+tabla_espacios_prac_corp_lit = data.frame(prop_espacios_prac_corp_lit)
+colnames(tabla_espacios_prac_corp_lit) <- c("Proporción (%)")
+rownames(tabla_espacios_prac_corp_lit) <- c("Cancha de fútbol",
+                                            "No existen tales espacios",
+                                            "Otro",
+                                            "Playón multiuso",
+                                            "Posta de ejercicio",
+                                            "Polideportivo municipal",
+                                            "Natatorio municipal",
+                                            "Balnearios",
+                                            "Skatepark")
+
+kable(tabla_espacios_prac_corp_lit, format = "html", table.attr = "class='table table-striped'") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+
 
 combined_df <- bind_cols(tabla_espacios_prac_corp_caba, tabla_espacios_prac_corp_lit)
 
