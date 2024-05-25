@@ -9,10 +9,12 @@
 library(googledrive)
 library(readxl)
 
-file_name = "Datos.xlsx"
+file_name = "Datos_LP.xlsx"
 
 # Descargamos datos del Relevamiento habitacional desde Google Drive
 # El archivo se descarga en el working directory.
+# En el repositorio ya incluimos el archivo "Datos_LP.xlsx", por eso comentamos la descarga.
+# De cualquier manera, se puede utilizar el script para descargar el archivo.
 # googledrive::drive_download(as_id("1sD01MGvlotrAZuC_xPXwwNd5ipwqCHbo"),
 #                            overwrite = T)
 
@@ -22,5 +24,5 @@ datos_df <- readxl::read_excel(file_name,
 														skip = 3)
 
 # Borramos el archivo
-file.remove(file_name)
+# file.remove(file_name)
 
